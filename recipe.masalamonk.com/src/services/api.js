@@ -18,7 +18,7 @@ function getAuthToken() {
 
 // Create an axios instance with the base URL and default headers
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: apiUrl,  // Corrected here
   headers: {
     'Content-Type': 'application/json',
   },
