@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-r=wh@x$uu!cq$74w4@7#&4p+s^6u!^fi+hvxrabza+_m^b6^tp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['157.230.29.35', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['157.230.29.35', 'localhost', '127.0.0.1', '.vercel.app']
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

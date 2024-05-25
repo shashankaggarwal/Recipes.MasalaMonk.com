@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/**/*.svelte",
+        "use": "@vercel/svelte"
+      },
+      {
+        "src": "public/**/*",
+        "use": "@vercel/static"
+      }
+    ]
+  }
+  

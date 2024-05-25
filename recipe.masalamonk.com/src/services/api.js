@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000'; // Ensure this URL is correct
+const apiUrl = import.meta.env.VITE_API_URL;
 
 // Function to get the token from cookies
 function getAuthToken() {
