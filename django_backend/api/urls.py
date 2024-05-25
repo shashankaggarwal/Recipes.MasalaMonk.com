@@ -7,3 +7,4 @@ urlpatterns = [
     path('recipes/', recipes_list),
     path('recipes/<int:pk>/', recipe_detail),
 ]
+# test
