@@ -21,25 +21,15 @@ def login_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
 
-    # Debug statements
-    print(f"Username: {username}")
-    print(f"Password: {password}")
-
-    # Fetch the user directly to check the stored password hash
     try:
         user_obj = User.objects.get(username=username)
-        print(f"Stored password hash for {username}: {user_obj.password}")
     except User.DoesNotExist:
-        print(f"User {username} does not exist.")
         return Response({'error': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
     user = authenticate(username=username, password=password)
     if user:
         refresh = RefreshToken.for_user(user)
         return Response({'refresh': str(refresh), 'access': str(refresh.access_token)})
-    else:
-        print(f"Authentication failed for user: {username}")
-
     return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
@@ -48,7 +38,7 @@ def recipes_list(request):
         if request.user.is_authenticated:
             recipes = Recipe.objects.all()
         else:
-            recipes = Recipe.objects.filter(public=True)  # Only public recipes for non-authenticated users
+            recipes = Recipe.objects.filter(public=True)
         serializer = RecipeSerializer(recipes, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -57,7 +47,7 @@ def recipes_list(request):
             serializer.save(created_by=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def recipe_detail(request, pk):
