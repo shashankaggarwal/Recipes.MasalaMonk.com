@@ -10,7 +10,9 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
   web:
-    build: ./django_backend
+    build: 
+      context: ./django_backend
+      dockerfile: Dockerfile
     command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./django_backend:/app
