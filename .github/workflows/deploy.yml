@@ -43,18 +43,20 @@ jobs:
           docker build -t ghcr.io/shashankaggarwal/recipes.masalamonk.com/backend:latest -f django_backend/Dockerfile .
           docker push ghcr.io/shashankaggarwal/recipes.masalamonk.com/backend:latest
 
-      - name: Deploy to DigitalOcean
-        uses: appleboy/ssh-action@master
+      - name: Start ssh-agent
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: 157.230.29.35
-          username: root
-          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
-          script: |
+          ssh-private-key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+
+      - name: Deploy to DigitalOcean
+        run: |
+          ssh -o StrictHostKeyChecking=no root@157.230.29.35 << EOF
             cd /root/Recipes.MasalaMonk.com
             git pull origin main
             docker-compose down
             docker-compose pull web
             docker-compose up -d
+          EOF
 
   deploy-frontend:
     needs: build-and-deploy-backend
