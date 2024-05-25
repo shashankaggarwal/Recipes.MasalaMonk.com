@@ -123,6 +123,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://157.230.29.35:8000',
     'https://recipe-masalamonk-cldoyddcm-shashanks-projects-cf0518a2.vercel.app',
     'https://*.vercel.app',
+    'https://recipe-masalamonk-com.vercel.app/'
 ]
 
 REST_FRAMEWORK = {
@@ -132,7 +133,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 AUTH_USER_MODEL = 'api.User'
 
