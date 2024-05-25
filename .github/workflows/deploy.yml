@@ -50,7 +50,7 @@ jobs:
           username: root
           key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
           script: |
-            cd /root/recipes.masalamonk.com
+            cd /root/Recipes.MasalaMonk.com
             git pull origin main
             docker-compose down
             docker-compose pull web
