@@ -7,6 +7,7 @@
         "config": { "distDir": "dist" }
       }
     ],
+    "buildCommand": "vite build",
     "rewrites": [
       {
         "source": "/(.*)",
