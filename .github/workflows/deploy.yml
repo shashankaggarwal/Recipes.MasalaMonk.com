@@ -64,23 +64,26 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # Checks out your repository under $GITHUB_WORKSPACE
+      uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20.11.1'  # Use the same Node.js version as your local environment
+        node-version: '20.11.1'
 
     - name: Install Dependencies
-      run: npm install  # Install npm dependencies
+      run: npm install
+      working-directory: ./recipe.masalamonk.com  # Specify the directory containing package.json
 
     - name: Build
-      run: npm run build  # Run the build script specified in your package.json
+      run: npm run build
+      working-directory: ./recipe.masalamonk.com  # Specify the directory for the build command
 
     - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v20  # This action handles deployment to Vercel
+      uses: amondnet/vercel-action@v20
       with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}  # Vercel API token
-        vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}  # Use Team ID in place of Org ID if applicable
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}  # Vercel Project ID
-        vercel-args: '--prod --yes'  # Deploy to production and accept all prompts
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}  # Assuming VERCEL_TEAM_ID is used if you are under a team
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod --yes'
+      working-directory: ./recipe.masalamonk.com  # Ensure deployment uses the correct directory
