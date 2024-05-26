@@ -3,17 +3,18 @@
     "builds": [
       {
         "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "dist" }
+        "use": "@vercel/static-build"
       }
     ],
-    "buildCommand": "vite build",
+    "buildCommand": "vite build && mv ./dist ./public",
+    "outputDirectory": "public",
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/dist/index.html"
+        "destination": "/public/index.html"
       }
     ],
     "cleanUrls": true,
     "trailingSlash": false
-}
+  }
+  
