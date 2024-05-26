@@ -4,7 +4,7 @@
       {
         "src": "recipe.masalamonk.com/package.json",
         "use": "@vercel/static-build",
-        "config": { "distDir": "dist" }  
+        "config": { "distDir": "recipe.masalamonk.com/dist" }
       }
     ],
     "cleanUrls": true,
@@ -12,7 +12,7 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/dist/index.html"
+        "destination": "/recipe.masalamonk.com/dist/index.html"
       }
     ]
   }
