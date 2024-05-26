@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: mypassword
         ports:
           - 5432:5432
-        options: >
+        options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -51,11 +51,11 @@ jobs:
       - name: Deploy to DigitalOcean
         run: |
           ssh -o StrictHostKeyChecking=no root@157.230.29.35 << EOF
-          cd /root/Recipes.MasalaMonk.com
-          git pull origin main
-          docker-compose down
-          docker-compose pull web
-          docker-compose up -d
+            cd /root/Recipes.MasalaMonk.com
+            git pull origin main
+            docker-compose down
+            docker-compose pull web
+            docker-compose up -d
           EOF
 
   deploy-frontend:
