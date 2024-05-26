@@ -3,11 +3,10 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/dist/index.html",
-        "status": 200  
+        "destination": "/dist/index.html"
       }
     ],
-    "cleanUrls": true,  
-    "trailingSlash": false  
+    "cleanUrls": true,
+    "trailingSlash": false
   }
   
