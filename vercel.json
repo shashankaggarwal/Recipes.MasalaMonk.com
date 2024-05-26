@@ -4,10 +4,10 @@
       {
         "source": "/(.*)",
         "destination": "/dist/index.html",
-        "status": 200
+        "status": 200  
       }
     ],
-    "cleanUrls": true,
-    "trailingSlash": false
+    "cleanUrls": true,  
+    "trailingSlash": false  
   }
   

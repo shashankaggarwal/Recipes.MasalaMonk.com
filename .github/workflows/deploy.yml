@@ -63,13 +63,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checks out your repository under $GITHUB_WORKSPACE
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.11.1'  # Use the same Node.js version as your local environment
 
-      - name: Deploy to Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel --prod
+    - name: Install Dependencies
+      run: npm install  # Install npm dependencies
+
+    - name: Build
+      run: npm run build  # Run the build script specified in your package.json
+
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v20  # This action handles deployment to Vercel
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}  # Vercel API token
+        vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}  # Use Team ID in place of Org ID if applicable
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}  # Vercel Project ID
+        vercel-args: '--prod --yes'  # Deploy to production and accept all prompts
