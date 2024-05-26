@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: mypassword
         ports:
           - 5432:5432
-        options: >-
+        options: >
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -51,11 +51,11 @@ jobs:
       - name: Deploy to DigitalOcean
         run: |
           ssh -o StrictHostKeyChecking=no root@157.230.29.35 << EOF
-            cd /root/Recipes.MasalaMonk.com
-            git pull origin main
-            docker-compose down
-            docker-compose pull web
-            docker-compose up -d
+          cd /root/Recipes.MasalaMonk.com
+          git pull origin main
+          docker-compose down
+          docker-compose pull web
+          docker-compose up -d
           EOF
 
   deploy-frontend:
@@ -63,27 +63,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20.11.1'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.11.1'
 
-    - name: Install Dependencies
-      run: npm install
-      working-directory: ./recipe.masalamonk.com  # Specify the directory containing package.json
+      - name: Install Dependencies
+        run: npm install
+        working-directory: recipe.masalamonk.com  # Added working-directory
 
-    - name: Build
-      run: npm run build
-      working-directory: ./recipe.masalamonk.com  # Specify the directory for the build command
+      - name: Build
+        run: npm run build
+        working-directory: recipe.masalamonk.com  # Added working-directory
 
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v20
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}  # Assuming VERCEL_TEAM_ID is used if you are under a team
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod --yes'
-      working-directory: ./recipe.masalamonk.com  # Ensure deployment uses the correct directory
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}  # Changed to team ID if only team context is available
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod --yes'
+        working-directory: recipe.masalamonk.com  # Ensure deployment command runs in the correct directory
