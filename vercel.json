@@ -1,12 +1,16 @@
 {
     "version": 2,
-    "routes": [
-      { "handle": "filesystem" },
+    "builds": [
       {
-        "src": "/.*",
-        "dest": "/dist/index.html",
-        "status": 200
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist"
+        }
       }
+    ],
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/dist/index.html" }
     ],
     "cleanUrls": true,
     "trailingSlash": false
